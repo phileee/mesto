@@ -1,0 +1,13 @@
+.profile__prename {
+  font-size: 18px;
+  line-height: 22px;
+  margin: 16px 0 25px;
+}
+
+@media (max-width: 500px) {
+  .profile__prename {
+    font-size: 14px;
+    line-height: 17px;
+    margin: 7px auto 0;
+  }
+}
