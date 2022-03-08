@@ -8,7 +8,7 @@
   line-height: 22px;
   color: #FFFFFF;
   cursor: pointer;
-  margin: 48px auto 0;
+  margin: 48px auto 37px;
   transition: opacity 1s linear;
 }
 
@@ -18,7 +18,7 @@
 
 @media (max-width: 500px) {
   .popup__save {
-    margin: 45px auto 0;
+    margin: 45px auto 25px;
     width: 238px;
   }
 }
