@@ -1,4 +1,4 @@
-.popup__username {
+.popup__input {
   width: 358px;
   height: 27px;
   margin: 44px auto 0;
@@ -11,8 +11,12 @@
   line-height: 17px;
 }
 
+.popup__input:nth-child(2) {
+  margin: 24px auto 0;
+}
+
 @media (max-width: 500px) {
-  .popup__username {
+  .popup__input {
     margin: 71px auto 0;
     width: 238px;
   }

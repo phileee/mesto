@@ -19,60 +19,60 @@
         <div class="profile__avatar"></div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <div class="profile__edit-button"></div>
+          <button class="profile__edit-button" type="button"></button>
           <p class="profile__prename">Исследователь океана</p>
         </div>
-        <div class="profile__add-button"></div>
+        <button class="profile__add-button" type="button"></button>
       </section>
 
       <section class="elements">
-        <figure class="element">
+        <article class="element">
           <img class="element__image" alt="Якутия" src="./images/saha.jpg">
           <div class="element__bottom">
             <h2 class="element__caption">Якутия</h2>
             <div class="element__like"></div>
           </div>
-        </figure>
+        </article>
 
-        <figure class="element">
+        <article class="element">
           <img class="element__image" alt="Домбай" src="./images/dombay.jpg">
           <div class="element__bottom">
             <h2 class="element__caption">Домбай</h2>
             <div class="element__like"></div>
           </div>
-        </figure>
+        </article>
 
-        <figure class="element">
+        <article class="element">
           <img class="element__image" alt="Эльбрус" src="./images/elbrus.jpg">
           <div class="element__bottom">
             <h2 class="element__caption">Эльбрус</h2>
             <div class="element__like"></div>
           </div>
-        </figure>
+        </article>
 
-        <figure class="element">
+        <article class="element">
           <img class="element__image" alt="Карачаевск" src="./images/karach.jpg">
           <div class="element__bottom">
             <h2 class="element__caption">Карачаевск</h2>
             <div class="element__like"></div>
           </div>
-        </figure>
+        </article>
 
-        <figure class="element">
+        <article class="element">
           <img class="element__image" alt="Коми" src="./images/komi.jpg">
           <div class="element__bottom">
             <h2 class="element__caption">Республика Коми</h2>
             <div class="element__like"></div>
           </div>
-        </figure>
+        </article>
 
-        <figure class="element">
+        <article class="element">
           <img class="element__image" alt="Пермь" src="./images/perm.jpg">
           <div class="element__bottom">
             <h2 class="element__caption">Пермь</h2>
-            <div class="element__like"></div>
-          </div>
-        </figure>
+            <button class="element__like" type="button"></button>
+          </article>
+        </div>
       </section>
     </main>
 
@@ -83,14 +83,14 @@
     <div class="popup">
       <div class="popup__box">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form class="popup__form">
-          <input class="popup__username" type="text" required placeholder="Введите имя">
-          <input class="popup__description" type="text" required placeholder="О себе">
+        <form class="popup__form" name="popup-form">
+          <input class="popup__input" type="text" name="popup-username" id="popup-username" required placeholder="Введите имя">
+          <input class="popup__input" type="text" name="popup-description" id="popup-description" required placeholder="О себе">
           <button class="popup__save" type="submit">Сохранить</button>
         </form>
         <button class="popup__close" type="button"></button>
       </div>
     </div>
-    <script src="../mesto/scripts/script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 </html>

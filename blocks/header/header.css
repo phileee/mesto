@@ -1,10 +1,12 @@
 .header {
   max-width: 880px;
-  margin: 45px auto 0;
+  margin: 0 auto;
+  padding: 45px 0 40px;
+  border-bottom: 1px solid #545454;
 }
 
 @media (max-width: 350px) {
   .header {
-    margin: 28px auto 0;
+    padding: 28px 0 31px;
   }
 }

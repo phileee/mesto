@@ -5,10 +5,14 @@ let closePopup = document.querySelector('.popup__close');
 let profileName = document.querySelector('.profile__name');
 let profilePrename = document.querySelector('.profile__prename');
 
-let popupUsername = document.querySelector('.popup__username');
-let popupDescription = document.querySelector('.popup__description');
+let popupUsername = document.querySelector('#popup-username');
+let popupDescription = document.querySelector('#popup-description');
 
 let formElement = document.querySelector('.popup__form');
+
+function closePopupOpened() {
+  popup.classList.remove('popup_opened');
+}
 
 openPopup.addEventListener('click', function() {
   popupUsername.value = profileName.textContent;

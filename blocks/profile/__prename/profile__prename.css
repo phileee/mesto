@@ -2,6 +2,9 @@
   font-size: 18px;
   line-height: 22px;
   margin: 16px 0 25px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (max-width: 500px) {
