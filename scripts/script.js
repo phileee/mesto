@@ -21,14 +21,14 @@ openPopup.addEventListener('click', function() {
 });
 
 closePopup.addEventListener('click', function() {
-  popup.classList.remove('popup_opened');
+  closePopupOpened()
 });
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = popupUsername.value;
   profilePrename.textContent = popupDescription.value;
-  popup.classList.remove('popup_opened');
+  closePopupOpened()
 }
 
 formElement.addEventListener('submit', formSubmitHandler);

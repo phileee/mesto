@@ -7,10 +7,10 @@
   overflow: hidden;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .profile__prename {
     font-size: 14px;
     line-height: 17px;
-    margin: 7px auto 0;
+    margin: 7px 0 0;
   }
 }

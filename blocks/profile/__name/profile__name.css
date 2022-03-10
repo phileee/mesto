@@ -8,10 +8,11 @@
   overflow: hidden;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 500px) {
   .profile__name {
     font-size: 27px;
     line-height: 33px;
-    margin: 22px 0 0 46px;
+    margin: 22px 0 0 auto;
+    text-align: center;
   }
 }

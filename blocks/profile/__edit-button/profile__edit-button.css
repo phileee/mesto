@@ -3,9 +3,9 @@
   background-image: url(../../../images/Edit\ Button.svg);
   background-position: center;
   background-color: transparent;
-  width: 24px;
-  height: 24px;
-  margin: 37px 0 0 auto;
+  min-width: 24px;
+  min-height: 24px;
+  margin: 37px 0 0 18px;
   cursor: pointer;
   transition: opacity 1s linear;
 }
@@ -14,10 +14,10 @@
   opacity: 0.6;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 500px) {
   .profile__edit-button {
-    width: 18px;
-    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
     margin: 30px auto 7px 10px;
   }
 }

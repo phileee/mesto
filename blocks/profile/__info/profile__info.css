@@ -10,5 +10,6 @@
   .profile__info {
     margin: 0;
     justify-content: center;
+    max-width: 282px;
   }
 }
