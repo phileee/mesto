@@ -27,53 +27,6 @@
       </section>
 
       <section class="elements">
-        <article class="element">
-          <img class="element__image" alt="Якутия" src="./images/saha.jpg">
-          <div class="element__bottom">
-            <h2 class="element__caption">Якутия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <img class="element__image" alt="Домбай" src="./images/dombay.jpg">
-          <div class="element__bottom">
-            <h2 class="element__caption">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <img class="element__image" alt="Эльбрус" src="./images/elbrus.jpg">
-          <div class="element__bottom">
-            <h2 class="element__caption">Эльбрус</h2>
-            <div class="element__like"></div>
-          </div>
-        </article>
-
-        <article class="element">
-          <img class="element__image" alt="Карачаевск" src="./images/karach.jpg">
-          <div class="element__bottom">
-            <h2 class="element__caption">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <img class="element__image" alt="Коми" src="./images/komi.jpg">
-          <div class="element__bottom">
-            <h2 class="element__caption">Республика Коми</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-
-        <article class="element">
-          <img class="element__image" alt="Пермь" src="./images/perm.jpg">
-          <div class="element__bottom">
-            <h2 class="element__caption">Пермь</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
       </section>
     </main>
 
@@ -81,17 +34,48 @@
       <p class="footer__copyright">&copy;	2022. φιλέ</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup" id="popup-profile">
       <div class="popup__box">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form class="popup__form" name="popup-form">
+        <form class="popup__form" name="popup-form" id="popup-form-profile">
           <input class="popup__input" type="text" name="popup-username" id="popup-username" required placeholder="Введите имя">
           <input class="popup__input" type="text" name="popup-description" id="popup-description" required placeholder="О себе">
           <button class="popup__save" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close" type="button"></button>
+        <button class="popup__close" type="button" id="profile-close"></button>
       </div>
     </div>
+
+    <div class="popup" id="popup-card">
+      <div class="popup__box">
+        <h2 class="popup__header">Новое место</h2>
+        <form class="popup__form" name="popup-form-card" id="popup-form-card">
+          <input class="popup__input" type="text" name="card-name" id="card-name" required placeholder="Название">
+          <input class="popup__input" type="url" name="card-url" id="card-url" required placeholder="Сcылка на картинку">
+          <button class="popup__save" type="submit">Создать</button>
+        </form>
+        <button class="popup__close" type="button" id="card-close"></button>
+      </div>
+    </div>
+
+    <div class="popup" id="popup-image">
+      <figure class="popup__figure">
+        <button class="popup__close" type="button"></button>
+        <img class="popup__figure-image" src="" alt="">
+        <figcaption class="popup__figure-caption"></figcaption>
+      </figure>
+    </div>
+
+    <template id="template-element">
+      <article class="element">
+        <img class="element__image" alt="" src="">
+        <button class="element__trash" type="button"></button>
+        <div class="element__bottom">
+          <h2 class="element__caption"></h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+    </template>
     <script src="scripts/script.js"></script>
 </body>
 </html>
