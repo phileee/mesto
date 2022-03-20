@@ -14,8 +14,12 @@ const cardName = document.querySelector('#card-name');
 const cardUrl = document.querySelector('#card-url');
 const formCard = document.querySelector('#popup-form-card');
 
-const elementCards = document.querySelector('.elements');
+const popupFigure = document.querySelector('#popup-figure');
+const closeFigure = document.querySelector('#image-close');
+const figureImage = popupFigure.querySelector('.popup__figure-image');
+const figureCaption = popupFigure.querySelector('.popup__figure-caption');
 
+const elementCards = document.querySelector('.elements');
 
 const initialCards = [
   {
@@ -51,21 +55,15 @@ function createCard(initialCollection) {
   elementCard.querySelector('.element__image').src = initialCollection.link;
   elementCard.querySelector('.element__image').alt = initialCollection.name;
   elementCard.querySelector('.element__caption').textContent = initialCollection.name;
-  elementCard.querySelector(".element__trash").addEventListener("click", deleteElement);
+  elementCard.querySelector('.element__trash').addEventListener('click', deleteElement);
+  elementCard.querySelector('.element__like').addEventListener('click', likeElement);
+  elementCard.querySelector('.element__image').addEventListener('click', figCaption);
   elementCards.append(elementCard);
 }
 
 initialCards.forEach(function (card) {
 createCard(card);
 });
-
-
-
-
-
-
-
-
 
 
 function closePopup(selector) {
@@ -75,8 +73,6 @@ function closePopup(selector) {
 function openPopup(selector) {
   selector.classList.add('popup_opened');
 }
-
-
 
 
 openProfile.addEventListener('click', function() {
@@ -99,9 +95,6 @@ function formProfileSubmitHandler (evt) {
 formProfile.addEventListener('submit', formProfileSubmitHandler);
 
 
-
-
-
 addCard.addEventListener('click', function() {
   openPopup(popupCard);
 });
@@ -119,7 +112,9 @@ function formCardSubmitHandler(evt) {
   elCard.querySelector('.element__image').alt = cardName.value;
   elCard.querySelector('.element__image').src = cardUrl.value;
   elCard.querySelector('.element__caption').textContent = cardName.value;
-  elCard.querySelector(".element__trash").addEventListener("click", deleteElement);
+  elCard.querySelector('.element__trash').addEventListener('click', deleteElement);
+  elCard.querySelector('.element__like').addEventListener('click', likeElement);
+  elCard.querySelector('.element__image').addEventListener('click', figCaption);
   elementCards.prepend(elCard);
   
   cardName.value = "";
@@ -131,10 +126,28 @@ function formCardSubmitHandler(evt) {
 formCard.addEventListener('submit', formCardSubmitHandler);
 
 
-
 function deleteElement(evt) {
   const eventTarget = evt.target.closest('.element');
   eventTarget.remove();
 }
 
+function likeElement(evt) {
+  const eventTarget = evt.target.closest('.element');
+  const heart = eventTarget.querySelector('.element__like');
+  heart.classList.toggle('element__like_active');
+}
 
+
+function figCaption(evt) {
+  const el = evt.target.closest('.element');
+  const figImg = el.querySelector('.element__image');
+  const figCap = el.querySelector('.element__caption');
+  figureImage.src = figImg.src;
+  figureImage.alt = figCap.textContent;
+  figureCaption.textContent = figCap.textContent;
+  openPopup(popupFigure);
+}
+
+closeFigure.addEventListener("click", function () {
+  closePopup(popupFigure);
+});
