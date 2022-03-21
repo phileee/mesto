@@ -1,25 +1,26 @@
 const popupProfile = document.querySelector('#popup-profile');
-const openProfile = document.querySelector('.profile__edit-button');
-const closeProfile = popupProfile.querySelector('#profile-close');
+const openerProfile = document.querySelector('.profile__edit-button');
+const closerProfile = popupProfile.querySelector('#profile-close');
 const profileName = document.querySelector('.profile__name');
 const profilePrename = document.querySelector('.profile__prename');
-const popupUsername = document.querySelector('#popup-username');
-const popupDescription = document.querySelector('#popup-description');
+const usernameElement = document.querySelector('#popup-username');
+const descriptionElement = document.querySelector('#popup-description');
 const formProfile = document.querySelector('#popup-form-profile');
 
-const addCard = document.querySelector('.profile__add-button');
+const adderCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('#popup-card');
-const closeCard = document.querySelector('#card-close');
+const closerCard = document.querySelector('#card-close');
 const cardName = document.querySelector('#card-name');
 const cardUrl = document.querySelector('#card-url');
 const formCard = document.querySelector('#popup-form-card');
 
 const popupFigure = document.querySelector('#popup-figure');
-const closeFigure = document.querySelector('#image-close');
+const closerFigure = document.querySelector('#image-close');
 const figureImage = popupFigure.querySelector('.popup__figure-image');
 const figureCaption = popupFigure.querySelector('.popup__figure-caption');
 
 const elementCards = document.querySelector('.elements');
+const elementCardTemplate = document.querySelector('#template-element').content;
 
 const initialCards = [
   {
@@ -49,73 +50,75 @@ const initialCards = [
 ]; 
 
 function createCard(initialCollection) {
-  const elementCardTemplate = document.querySelector('#template-element').content;
   const elementCard = elementCardTemplate.querySelector('.element').cloneNode(true);
 
   elementCard.querySelector('.element__image').src = initialCollection.link;
   elementCard.querySelector('.element__image').alt = initialCollection.name;
   elementCard.querySelector('.element__caption').textContent = initialCollection.name;
-  elementCard.querySelector('.element__trash').addEventListener('click', deleteElement);
-  elementCard.querySelector('.element__like').addEventListener('click', likeElement);
-  elementCard.querySelector('.element__image').addEventListener('click', figCaption);
-  elementCards.append(elementCard);
+  
+  listenerElements(elementCard);
+
+  return elementCard;
+}
+
+function renderCard(card, massive) {
+  massive.prepend(card);
 }
 
 initialCards.forEach(function (card) {
-createCard(card);
+renderCard(createCard(card), elementCards)
 });
 
 
-function closePopup(selector) {
-  selector.classList.remove('popup_opened');
+function closePopup(elementDOM) {
+  elementDOM.classList.remove('popup_opened');
 }
 
-function openPopup(selector) {
-  selector.classList.add('popup_opened');
+function openPopup(elementDOM) {
+  elementDOM.classList.add('popup_opened');
 }
 
 
-openProfile.addEventListener('click', function() {
-  popupUsername.value = profileName.textContent;
-  popupDescription.value = profilePrename.textContent;
+openerProfile.addEventListener('click', function() {
+  usernameElement.value = profileName.textContent;
+  descriptionElement.value = profilePrename.textContent;
   openPopup(popupProfile);
 });
 
-closeProfile.addEventListener('click', function() {
+closerProfile.addEventListener('click', function() {
   closePopup(popupProfile);
 });
 
 function formProfileSubmitHandler (evt) {
   evt.preventDefault();
-  profileName.textContent = popupUsername.value;
-  profilePrename.textContent = popupDescription.value;
+  profileName.textContent = usernameElement.value;
+  profilePrename.textContent = descriptionElement.value;
   closePopup(popupProfile);
 }
 
 formProfile.addEventListener('submit', formProfileSubmitHandler);
 
 
-addCard.addEventListener('click', function() {
+adderCard.addEventListener('click', function() {
   openPopup(popupCard);
 });
 
-closeCard.addEventListener('click', function() {
+closerCard.addEventListener('click', function() {
   closePopup(popupCard);
 });
 
 function formCardSubmitHandler(evt) {
   evt.preventDefault();
 
-  const elementCardTemplate = document.querySelector('#template-element').content;
   const elCard = elementCardTemplate.querySelector('.element').cloneNode(true);
   
   elCard.querySelector('.element__image').alt = cardName.value;
   elCard.querySelector('.element__image').src = cardUrl.value;
   elCard.querySelector('.element__caption').textContent = cardName.value;
-  elCard.querySelector('.element__trash').addEventListener('click', deleteElement);
-  elCard.querySelector('.element__like').addEventListener('click', likeElement);
-  elCard.querySelector('.element__image').addEventListener('click', figCaption);
-  elementCards.prepend(elCard);
+  
+  listenerElements(elCard);
+
+  renderCard(elCard, elementCards);
   
   cardName.value = "";
   cardUrl.value = "";
@@ -125,6 +128,11 @@ function formCardSubmitHandler(evt) {
 
 formCard.addEventListener('submit', formCardSubmitHandler);
 
+function listenerElements(element) {
+  element.querySelector('.element__trash').addEventListener('click', deleteElement);
+  element.querySelector('.element__like').addEventListener('click', likeElement);
+  element.querySelector('.element__image').addEventListener('click', figCaption);
+}
 
 function deleteElement(evt) {
   const eventTarget = evt.target.closest('.element');
@@ -132,8 +140,7 @@ function deleteElement(evt) {
 }
 
 function likeElement(evt) {
-  const eventTarget = evt.target.closest('.element');
-  const heart = eventTarget.querySelector('.element__like');
+  const heart = evt.target.closest('.element').querySelector('.element__like');
   heart.classList.toggle('element__like_active');
 }
 
@@ -148,6 +155,6 @@ function figCaption(evt) {
   openPopup(popupFigure);
 }
 
-closeFigure.addEventListener("click", function () {
+closerFigure.addEventListener("click", function () {
   closePopup(popupFigure);
 });
