@@ -110,15 +110,11 @@ closerCard.addEventListener('click', function() {
 function formCardSubmitHandler(evt) {
   evt.preventDefault();
 
-  const elCard = elementCardTemplate.querySelector('.element').cloneNode(true);
-  
-  elCard.querySelector('.element__image').alt = cardName.value;
-  elCard.querySelector('.element__image').src = cardUrl.value;
-  elCard.querySelector('.element__caption').textContent = cardName.value;
-  
-  listenerElements(elCard);
-
-  renderCard(elCard, elementCards);
+  const elCard = {};
+  elCard.name= cardName.value;
+  elCard.link = cardUrl.value;
+  const completedElCard = createCard(elCard);
+  renderCard(completedElCard, elementCards);
   
   cardName.value = "";
   cardUrl.value = "";
@@ -140,7 +136,7 @@ function deleteElement(evt) {
 }
 
 function likeElement(evt) {
-  const heart = evt.target.closest('.element').querySelector('.element__like');
+  const heart = evt.target;
   heart.classList.toggle('element__like_active');
 }
 
