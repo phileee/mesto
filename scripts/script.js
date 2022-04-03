@@ -159,12 +159,16 @@ closerFigure.addEventListener("click", function () {
 
 function closeByOverlay(evt) {
   if (evt.target === evt.target.closest(".popup")) {
+    cardName.value = "";
+    cardUrl.value = "";
     closePopup(evt.target.closest(".popup"));
   }
 }
 
 function closeByEscape(evt) {
   if (evt.key === "Escape") {
+    cardName.value = "";
+    cardUrl.value = "";
     closePopup(document.querySelector(".popup_opened"));
   }
 }
