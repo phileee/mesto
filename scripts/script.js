@@ -75,6 +75,8 @@ function closePopup(elementDOM) {
 }
 
 function openPopup(elementDOM) {
+  document.addEventListener("keydown", closeByEscape);
+  document.addEventListener("mousedown", closeByOverlay);
   elementDOM.classList.add('popup_opened');
 }
 
@@ -154,3 +156,15 @@ function figCaption(evt) {
 closerFigure.addEventListener("click", function () {
   closePopup(popupFigure);
 });
+
+function closeByOverlay(evt) {
+  if (evt.target === evt.target.closest(".popup")) {
+    closePopup(evt.target.closest(".popup"));
+  }
+}
+
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    closePopup(document.querySelector(".popup_opened"));
+  }
+}
