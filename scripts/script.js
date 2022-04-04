@@ -22,32 +22,14 @@ const figureCaption = popupFigure.querySelector('.popup__figure-caption');
 const elementCards = document.querySelector('.elements');
 const elementCardTemplate = document.querySelector('#template-element').content;
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
+const buttonSubmit = popupCard.querySelector('.popup__button');
+
+
+
+function resetSubmitButton() {
+  buttonSubmit.classList.add('popup__button_disabled');
+  buttonSubmit.setAttribute("disabled", "disabled");
+}
 
 function createCard(initialCollection) {
   const elementCard = elementCardTemplate.querySelector('.element').cloneNode(true);
@@ -71,6 +53,8 @@ renderCard(createCard(card), elementCards)
 
 
 function closePopup(elementDOM) {
+  document.removeEventListener("keydown", closeByEscape);
+  document.removeEventListener("mousedown", closeByOverlay);
   elementDOM.classList.remove('popup_opened');
 }
 
@@ -120,6 +104,7 @@ function formCardSubmitHandler(evt) {
   
   cardName.value = "";
   cardUrl.value = "";
+  resetSubmitButton();
 
   closePopup(popupCard);
 }
@@ -159,16 +144,12 @@ closerFigure.addEventListener("click", function () {
 
 function closeByOverlay(evt) {
   if (evt.target === evt.target.closest(".popup")) {
-    cardName.value = "";
-    cardUrl.value = "";
     closePopup(evt.target.closest(".popup"));
   }
 }
 
 function closeByEscape(evt) {
   if (evt.key === "Escape") {
-    cardName.value = "";
-    cardUrl.value = "";
     closePopup(document.querySelector(".popup_opened"));
   }
 }
