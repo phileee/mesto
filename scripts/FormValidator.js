@@ -1,6 +1,6 @@
 export class FormValidator {
   constructor(list, form) {
-    this._formSelector = list.formSelector;
+    
     this._inputSelector = list.inputSelector;
     this._submitButtonSelector = list.submitButtonSelector;
     this._inactiveButtonClass = list.inactiveButtonClass;
