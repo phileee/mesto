@@ -11,13 +11,16 @@
   line-height: 17px;
 }
 
-.popup__input:nth-child(2) {
-  margin: 2px auto 0;
-}
+
 
 @media (max-width: 500px) {
   .popup__input {
     margin: 71px auto 0;
+    width: 238px;
+  }
+
+  .popup__input:nth-of-type(2) {
+    margin: 0 auto 0;
     width: 238px;
   }
 }

@@ -24,7 +24,7 @@ export class Card {
     this._element.querySelector('.element__image').alt = this._name;
     this._element.querySelector('.element__caption').textContent = this._name;
 
-    this._listenerElements();
+    this._listenElements();
   
     return this._element;
   }
@@ -37,7 +37,7 @@ export class Card {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
 
-  _figCaption() {
+  _openPreview() {
     const figImg = this._element.querySelector('.element__image');
     const figCap = this._element.querySelector('.element__caption');
     figureImage.src = figImg.src;
@@ -46,7 +46,7 @@ export class Card {
     openPopup(popupFigure);
   }
   
-  _listenerElements() {
+  _listenElements() {
     this._element.querySelector('.element__trash').addEventListener('click', () => {
       this._deleteElement();
     });
@@ -54,7 +54,7 @@ export class Card {
       this._likeElement();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._figCaption();
+      this._openPreview();
     });
   }
 }

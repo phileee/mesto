@@ -7,7 +7,7 @@ const openerProfile = document.querySelector('.profile__edit-button');
 const closerProfile = popupProfile.querySelector('#profile-close');
 const profileName = document.querySelector('.profile__name');
 const profilePrename = document.querySelector('.profile__prename');
-const usernameElement = document.querySelector('#popup-username');
+const userNameElement = document.querySelector('#popup-username');
 const descriptionElement = document.querySelector('#popup-description');
 const formProfile = document.querySelector('#popup-form-profile');
 
@@ -73,7 +73,7 @@ export function openPopup(elementDOM) {
 
 
 openerProfile.addEventListener('click', function() {
-  usernameElement.value = profileName.textContent;
+  userNameElement.value = profileName.textContent;
   descriptionElement.value = profilePrename.textContent;
   openPopup(popupProfile);
 });
@@ -82,14 +82,14 @@ closerProfile.addEventListener('click', function() {
   closePopup(popupProfile);
 });
 
-function formProfileSubmitHandler (evt) {
+function submitHandlerFormProfile (evt) {
   evt.preventDefault();
-  profileName.textContent = usernameElement.value;
+  profileName.textContent = userNameElement.value;
   profilePrename.textContent = descriptionElement.value;
   closePopup(popupProfile);
 }
 
-formProfile.addEventListener('submit', formProfileSubmitHandler);
+formProfile.addEventListener('submit', submitHandlerFormProfile);
 
 
 adderCard.addEventListener('click', function() {
@@ -100,7 +100,7 @@ closerCard.addEventListener('click', function() {
   closePopup(popupCard);
 });
 
-function formCardSubmitHandler(evt) {
+function submitHandlerFormCard(evt) {
   evt.preventDefault();
 
   const elCard = {};
@@ -115,13 +115,6 @@ function formCardSubmitHandler(evt) {
   closePopup(popupCard);
 }
 
-formCard.addEventListener('submit', formCardSubmitHandler);
-
-closerFigure.addEventListener("click", function () {
-  closePopup(popupFigure);
-});
-
-
 function closeByOverlay(evt) {
   if (evt.target === evt.target.closest(".popup")) {
     closePopup(evt.target.closest(".popup"));
@@ -133,3 +126,9 @@ function closeByEscape(evt) {
     closePopup(document.querySelector(".popup_opened"));
   }
 }
+
+formCard.addEventListener('submit', submitHandlerFormCard);
+
+closerFigure.addEventListener("click", function () {
+  closePopup(popupFigure);
+});
