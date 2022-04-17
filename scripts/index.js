@@ -1,3 +1,7 @@
+import {Card} from './Card.js';
+import {initialCards} from './array.js';
+import {FormValidator} from './FormValidator.js';
+
 const popupProfile = document.querySelector('#popup-profile');
 const openerProfile = document.querySelector('.profile__edit-button');
 const closerProfile = popupProfile.querySelector('#profile-close');
@@ -14,41 +18,44 @@ const cardName = document.querySelector('#card-name');
 const cardUrl = document.querySelector('#card-url');
 const formCard = document.querySelector('#popup-form-card');
 
-const popupFigure = document.querySelector('#popup-figure');
+export const popupFigure = document.querySelector('#popup-figure');
 const closerFigure = document.querySelector('#image-close');
-const figureImage = popupFigure.querySelector('.popup__figure-image');
-const figureCaption = popupFigure.querySelector('.popup__figure-caption');
+export const figureImage = popupFigure.querySelector('.popup__figure-image');
+export const figureCaption = popupFigure.querySelector('.popup__figure-caption');
 
 const elementCards = document.querySelector('.elements');
-const elementCardTemplate = document.querySelector('#template-element').content;
 
 const buttonSubmit = popupCard.querySelector('.popup__button');
 
+const selectorArray = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+};
 
+const formList = Array.from(document.querySelectorAll(selectorArray.formSelector));
+
+formList.forEach((formElement) => {
+    const formValidator = new FormValidator(selectorArray, formElement);
+    formValidator.enableValidation();
+});
 
 function resetSubmitButton() {
   buttonSubmit.classList.add('popup__button_disabled');
   buttonSubmit.setAttribute("disabled", "disabled");
 }
 
-function createCard(initialCollection) {
-  const elementCard = elementCardTemplate.querySelector('.element').cloneNode(true);
 
-  elementCard.querySelector('.element__image').src = initialCollection.link;
-  elementCard.querySelector('.element__image').alt = initialCollection.name;
-  elementCard.querySelector('.element__caption').textContent = initialCollection.name;
-  
-  listenerElements(elementCard);
-
-  return elementCard;
-}
-
-function renderCard(card, massive) {
-  massive.prepend(card);
+function renderCard(item, template) {
+  const card = new Card(item, template);
+  const cardElement = card.createCard();
+  elementCards.prepend(cardElement);
 }
 
 initialCards.forEach(function (card) {
-renderCard(createCard(card), elementCards)
+  renderCard(card, '#template-element')
 });
 
 
@@ -58,7 +65,7 @@ function closePopup(elementDOM) {
   elementDOM.classList.remove('popup_opened');
 }
 
-function openPopup(elementDOM) {
+export function openPopup(elementDOM) {
   document.addEventListener("keydown", closeByEscape);
   document.addEventListener("mousedown", closeByOverlay);
   elementDOM.classList.add('popup_opened');
@@ -99,8 +106,7 @@ function formCardSubmitHandler(evt) {
   const elCard = {};
   elCard.name= cardName.value;
   elCard.link = cardUrl.value;
-  const completedElCard = createCard(elCard);
-  renderCard(completedElCard, elementCards);
+  renderCard(elCard, "#template-element");
   
   cardName.value = "";
   cardUrl.value = "";
@@ -111,36 +117,10 @@ function formCardSubmitHandler(evt) {
 
 formCard.addEventListener('submit', formCardSubmitHandler);
 
-function listenerElements(element) {
-  element.querySelector('.element__trash').addEventListener('click', deleteElement);
-  element.querySelector('.element__like').addEventListener('click', likeElement);
-  element.querySelector('.element__image').addEventListener('click', figCaption);
-}
-
-function deleteElement(evt) {
-  const eventTarget = evt.target.closest('.element');
-  eventTarget.remove();
-}
-
-function likeElement(evt) {
-  const heart = evt.target;
-  heart.classList.toggle('element__like_active');
-}
-
-
-function figCaption(evt) {
-  const el = evt.target.closest('.element');
-  const figImg = el.querySelector('.element__image');
-  const figCap = el.querySelector('.element__caption');
-  figureImage.src = figImg.src;
-  figureImage.alt = figCap.textContent;
-  figureCaption.textContent = figCap.textContent;
-  openPopup(popupFigure);
-}
-
 closerFigure.addEventListener("click", function () {
   closePopup(popupFigure);
 });
+
 
 function closeByOverlay(evt) {
   if (evt.target === evt.target.closest(".popup")) {
