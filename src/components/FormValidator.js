@@ -1,4 +1,4 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(list, form) {
     
     this._inputSelector = list.inputSelector;
@@ -40,11 +40,18 @@ export class FormValidator {
       });
     });
   }
+
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
   
   enableValidation() {
-    this._form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
+    //this._form.addEventListener('submit', (evt) => {
+    // evt.preventDefault();
+    //});
   
     this._setEventListener();
   }

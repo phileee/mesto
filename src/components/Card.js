@@ -1,10 +1,9 @@
-import {figureImage, figureCaption, popupFigure, openPopup} from './index.js';
-
-export class Card {
-  constructor(data, cardSelector) {
+export default class Card {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -36,15 +35,6 @@ export class Card {
   _likeElement() {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
-
-  _openPreview() {
-    const figImg = this._element.querySelector('.element__image');
-    const figCap = this._element.querySelector('.element__caption');
-    figureImage.src = figImg.src;
-    figureImage.alt = figCap.textContent;
-    figureCaption.textContent = figCap.textContent;
-    openPopup(popupFigure);
-  }
   
   _listenElements() {
     this._element.querySelector('.element__trash').addEventListener('click', () => {
@@ -54,7 +44,7 @@ export class Card {
       this._likeElement();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._openPreview();
+      this._handleCardClick(this._name, this._link);
     });
   }
 }
