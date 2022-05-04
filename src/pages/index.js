@@ -56,6 +56,7 @@ const userInformation = new UserInfo({name: '.profile__name', info: '.profile__p
 
 const popupAddCard = new PopupWithForm('#popup-card', (data) => {
   createCard.setItemPrepend(renderCard(data));
+  popupAddCard.close();
 });
 
 popupAddCard.setEventListeners();
@@ -63,6 +64,7 @@ popupAddCard.setEventListeners();
 
 const popupProfile = new PopupWithForm('#popup-profile', (data) => {
   userInformation.setUserInfo(data);
+  popupProfile.close();
 });
 
 popupProfile.setEventListeners();

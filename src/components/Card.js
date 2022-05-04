@@ -18,18 +18,19 @@ export default class Card {
 
   createCard() {
     this._element = this._getTemplate();
+    this._elementImage = this._element.querySelector('.element__image');
 
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
     this._element.querySelector('.element__caption').textContent = this._name;
 
     this._listenElements();
-  
     return this._element;
   }
 
   _deleteElement() {
-    this._element.closest('.element').remove();
+    this._element.remove();
+    this._element = null;
   }
   
   _likeElement() {
