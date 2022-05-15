@@ -7,6 +7,7 @@ import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 
 import {initialCards} from '../utils/array.js';
 
@@ -18,6 +19,15 @@ formValidatorProfile.enableValidation();
 
 const formValidatorCard = new FormValidator(selectorArray, formCard);
 formValidatorCard.enableValidation();
+
+
+const popupConfirmation = new PopupWithConfirmation('#popup-confirm');
+
+popupConfirmation.setEventListeners();
+
+function handleCardConfirmation() {
+  popupConfirmation.open();
+}
 
 
 const figureImage = new PopupWithImage({
@@ -34,7 +44,7 @@ function handleCardClick(name, link) {
 };
 
 function renderCard(data) {
-  const card = new Card(data, '#template-element', handleCardClick);
+  const card = new Card(data, '#template-element', handleCardClick, handleCardConfirmation);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -84,3 +94,6 @@ adderCard.addEventListener('click', () => {
   formValidatorCard.resetValidation();
   popupAddCard.open();
 });
+
+
+

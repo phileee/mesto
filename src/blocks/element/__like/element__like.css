@@ -1,10 +1,10 @@
 .element__like {
   background-image: url(../../../images/Vector.svg);
   min-width: 22px;
-  height: 19px;
+  min-height: 19px;
   align-self: center;
   cursor: pointer;
-  transition: opacity 1s linear;
+  transition: opacity .5s linear;
   border: 0;
   background-color: transparent;
 }
