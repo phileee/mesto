@@ -8,10 +8,17 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
+import Api from '../components/Api.js';
 
-import {initialCards} from '../utils/array.js';
+import {openerProfile, adderCard, userNameElement, descriptionElement, formProfile, formCard, formAvatar, openerAvatarForm, selectorArray} from '../utils/constants.js';
 
-import {openerProfile, adderCard, userNameElement, descriptionElement, formProfile, formCard, selectorArray} from '../utils/constants.js';
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-41',
+  headers: {
+    authorization: '0d2eecbb-594d-452a-9a65-7b12cb43fb8e',
+    'Content-Type': 'application/json'
+  }
+}); 
 
 
 const formValidatorProfile = new FormValidator(selectorArray, formProfile);
@@ -20,14 +27,8 @@ formValidatorProfile.enableValidation();
 const formValidatorCard = new FormValidator(selectorArray, formCard);
 formValidatorCard.enableValidation();
 
-
-const popupConfirmation = new PopupWithConfirmation('#popup-confirm');
-
-popupConfirmation.setEventListeners();
-
-function handleCardConfirmation() {
-  popupConfirmation.open();
-}
+const formValidatorAvatar = new FormValidator(selectorArray, formAvatar);
+formValidatorAvatar.enableValidation();
 
 
 const figureImage = new PopupWithImage({
@@ -49,19 +50,29 @@ function renderCard(data) {
   return cardElement;
 }
 
-
-const createCard = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard
-  },
-  '.elements'
-);
-
-createCard.renderItems();
+let createCard;
+api.getInitialCards().then((data) => {
+  createCard = new Section(
+    {
+      items: data,
+      renderer: renderCard
+    },
+    '.elements'
+  );
+  createCard.renderItems();
+}).catch((err) => {
+  console.log(err);
+});
 
 
 const userInformation = new UserInfo({name: '.profile__name', info: '.profile__prename'});
+
+
+function handleCardConfirmation(element) {
+  const popupConfirmation = new PopupWithConfirmation('#popup-confirm', element);
+  popupConfirmation.setEventListeners();
+  popupConfirmation.open();
+}
 
 
 const popupAddCard = new PopupWithForm('#popup-card', (data) => {
@@ -80,6 +91,13 @@ const popupProfile = new PopupWithForm('#popup-profile', (data) => {
 popupProfile.setEventListeners();
 
 
+const popupAvatar = new PopupWithForm('#popup-avatar', (data) => {
+  popupAvatar.close();
+});
+
+popupAvatar.setEventListeners();
+
+
 openerProfile.addEventListener('click', () => {
   const getUserObj = userInformation.getUserInfo();
 
@@ -95,5 +113,8 @@ adderCard.addEventListener('click', () => {
   popupAddCard.open();
 });
 
-
+openerAvatarForm.addEventListener('click', () => {
+  formValidatorAvatar.resetValidation();
+  popupAvatar.open();
+})
 

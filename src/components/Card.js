@@ -29,10 +29,7 @@ export default class Card {
     return this._element;
   }
 
-  _deleteElement() {
-    this._element.remove();
-    this._element = null;
-  }
+  
   
   _likeElement() {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
@@ -40,7 +37,7 @@ export default class Card {
   
   _listenElements() {
     this._element.querySelector('.element__trash').addEventListener('click', () => {
-      this._handleCardConfirmation();
+      this._handleCardConfirmation(this._element)
     });
     this._element.querySelector('.element__like').addEventListener('click', () => {
       this._likeElement();

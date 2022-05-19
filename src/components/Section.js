@@ -8,6 +8,7 @@ export default class Section {
   renderItems() {
     this._items.forEach(item => {
       const cardElement = this._renderer(item);
+      cardElement.querySelector('.element__trash').remove();
       this.setItem(cardElement);
     });
   }
