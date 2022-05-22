@@ -12,12 +12,26 @@ export default class PopupWithConfirmation extends Popup {
     this._element = null;
   }
 
-  setEventListeners() {
+  setEventListeners(deleteCard) {
     super.setEventListeners();
     this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._deleteElement();
-      this.close();
+      this._renderLoading(true);
+      deleteCard
+        .then(() => this._deleteElement())
+        .finally(() => {
+          this._renderLoading(false);
+          this.close();
+        })
+      
     });
+  }
+
+  _renderLoading(isLoading) {
+    if (isLoading) {
+      this._popupSelector.querySelector('.popup__button').textContent = 'Сохранение...';
+    } else {
+      this._popupSelector.querySelector('.popup__button').textContent = 'Да';
+    }
   }
 }

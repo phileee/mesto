@@ -10,7 +10,7 @@ import UserInfo from '../components/UserInfo.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import Api from '../components/Api.js';
 
-import {openerProfile, adderCard, userNameElement, descriptionElement, formProfile, formCard, formAvatar, openerAvatarForm, selectorArray} from '../utils/constants.js';
+import {openerProfile, adderCard, userNameElement, descriptionElement, formProfile, formCard, linkAvatar, formAvatar, openerAvatarForm, selectorArray} from '../utils/constants.js';
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-41',
@@ -45,13 +45,16 @@ function handleCardClick(name, link) {
 };
 
 function renderCard(data) {
-  const card = new Card(data, '#template-element', handleCardClick, handleCardConfirmation);
+  const card = new Card(data, '#template-element', handleCardClick, handleCardConfirmation, api);
   const cardElement = card.createCard();
   return cardElement;
 }
 
+
 let createCard;
+
 api.getInitialCards().then((data) => {
+
   createCard = new Section(
     {
       items: data,
@@ -59,40 +62,65 @@ api.getInitialCards().then((data) => {
     },
     '.elements'
   );
+
   createCard.renderItems();
-}).catch((err) => {
-  console.log(err);
 });
+
 
 
 const userInformation = new UserInfo({name: '.profile__name', info: '.profile__prename'});
 
+api.getInitialUser().then((data) => {
+  linkAvatar.src = data.avatar;
+  userInformation.setUserInfo({name: data.name, info: data.about});
+});
 
-function handleCardConfirmation(element) {
+
+function handleCardConfirmation(element, id) {
   const popupConfirmation = new PopupWithConfirmation('#popup-confirm', element);
-  popupConfirmation.setEventListeners();
+  popupConfirmation.setEventListeners(api.deleteCard(id));
   popupConfirmation.open();
 }
 
 
 const popupAddCard = new PopupWithForm('#popup-card', (data) => {
-  createCard.setItemPrepend(renderCard(data));
-  popupAddCard.close();
+  popupAddCard.renderLoading(true);
+  api.addCard(data.name, data.link)
+    .then((res) => {
+      createCard.setItemPrepend(renderCard(res));
+    })
+    .finally(() => {
+      popupAddCard.close();
+      popupAddCard.renderLoading(false, 'Создать');
+    })
 });
 
 popupAddCard.setEventListeners();
 
 
 const popupProfile = new PopupWithForm('#popup-profile', (data) => {
+  popupProfile.renderLoading(true);
   userInformation.setUserInfo(data);
-  popupProfile.close();
+  api.setUser(data.name, data.info)
+  .finally(() => {
+    popupProfile.renderLoading(false);
+    popupProfile.close();
+  });
 });
 
 popupProfile.setEventListeners();
 
 
 const popupAvatar = new PopupWithForm('#popup-avatar', (data) => {
-  popupAvatar.close();
+  popupAvatar.renderLoading(true);
+  api.setAvatar(data.link)
+    .then((res) => {
+      linkAvatar.src = res.avatar;
+    })
+    .finally(() => {
+      popupAvatar.renderLoading(false);
+      popupAvatar.close();
+    });
 });
 
 popupAvatar.setEventListeners();

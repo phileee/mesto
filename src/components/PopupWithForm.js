@@ -13,7 +13,6 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach((item) => {
       this._inputValues[item.name] = item.value;
     });
-
     return this._inputValues;
   }
 
@@ -28,5 +27,13 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._popupForm.reset();
+  }
+
+  renderLoading(isLoading, initialTextButton='Сохранить') {
+    if (isLoading) {
+      this._popupSelector.querySelector('.popup__button').textContent = 'Сохранение...';
+    } else {
+      this._popupSelector.querySelector('.popup__button').textContent = initialTextButton;
+    }
   }
 }
