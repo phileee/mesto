@@ -8,30 +8,14 @@ export default class Api {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(this._checkResponse);
   }
 
   getInitialUser() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(this._checkResponse);
   }
 
   setUser(name, about) {
@@ -43,15 +27,7 @@ export default class Api {
         about: about
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(this._checkResponse);
   }
 
   addCard(prename, url) {
@@ -63,15 +39,7 @@ export default class Api {
         link: url
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(this._checkResponse);
   }
 
   deleteCard(id) {
@@ -79,15 +47,7 @@ export default class Api {
       method : 'DELETE',
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(this._checkResponse);
   }
 
   toggleLike(id, methodApi) {
@@ -95,15 +55,7 @@ export default class Api {
       method : methodApi,
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(this._checkResponse);
   }
 
   setAvatar(url) {
@@ -114,14 +66,13 @@ export default class Api {
         avatar: url
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }  
+    .then(this._checkResponse);
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
 }

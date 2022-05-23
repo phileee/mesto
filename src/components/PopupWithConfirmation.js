@@ -7,21 +7,32 @@ export default class PopupWithConfirmation extends Popup {
     this._element = element;
   }
 
-  _deleteElement() {
-    this._element.remove();
-    this._element = null;
+  _deleteElement(card) {
+    card.remove();
+    card = null;
   }
 
-  setEventListeners(deleteCard) {
+  open(element, id) {
+    super.open();
+    this._card = element;
+    this._id = id;
+  }
+
+  setEventListeners(api) {
     super.setEventListeners();
     this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._renderLoading(true);
-      deleteCard
-        .then(() => this._deleteElement())
+      api.deleteCard(this._id)
+        .then(() => {
+          this._deleteElement(this._card);
+          this.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
         .finally(() => {
           this._renderLoading(false);
-          this.close();
         })
       
     });
@@ -29,9 +40,9 @@ export default class PopupWithConfirmation extends Popup {
 
   _renderLoading(isLoading) {
     if (isLoading) {
-      this._popupSelector.querySelector('.popup__button').textContent = 'Сохранение...';
+      this._button.textContent = 'Сохранение...';
     } else {
-      this._popupSelector.querySelector('.popup__button').textContent = 'Да';
+      this._button.textContent = 'Да';
     }
   }
 }
