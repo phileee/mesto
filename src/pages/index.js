@@ -128,7 +128,7 @@ const popupAvatar = new PopupWithForm('#popup-avatar', (data) => {
   popupAvatar.renderLoading(true);
   api.setAvatar(data.link)
     .then((res) => {
-      linkAvatar.src = res.avatar;
+      userInformation.setUserInfo({name: res.name, info: res.about, avatar: res.avatar});
       popupAvatar.close();
     })
     .catch((err) => {
